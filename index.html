@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nautilus Navigation Chart</title>
+    <!-- Add Google Fonts: Space Grotesk and a decorative font for titles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Cinzel+Decorative:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #0a1a2a;
+        background-image: url("/api/placeholder/1200/800");
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: overlay;
+        font-family: "Space Grotesk", sans-serif;
+        color: #c9b18c;
+      }
+      .nautilus-container {
+        position: relative;
+        width: 90%;
+        max-width: 800px;
+        padding: 40px;
+        background-color: rgba(10, 26, 42, 0.85);
+        border: 8px double #c9b18c;
+        box-shadow: 0 0 30px rgba(0, 128, 128, 0.3);
+      }
+      .title-section {
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #c9b18c;
+        padding-bottom: 20px;
+      }
+      h1 {
+        font-family: "Cinzel Decorative", cursive;
+        color: #c9b18c;
+        margin: 0;
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+      }
+      h2 {
+        font-family: "Cinzel Decorative", cursive;
+        color: #c9b18c;
+        font-size: 1.3rem;
+        margin: 10px 0;
+        font-weight: normal;
+      }
+      .subtitle {
+        font-style: italic;
+        margin-top: 10px;
+        color: #8ca5c9;
+      }
+      .chart-container {
+        position: relative;
+        margin: 20px auto;
+        width: 440px;
+        height: 440px;
+        border: 5px solid #c9b18c;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: rgba(28, 43, 53, 0.7);
+      }
+      canvas {
+        display: block;
+        margin: 0 auto;
+        box-shadow: 0 0 20px rgba(0, 128, 128, 0.2);
+      }
+      .compass {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        border: 2px solid #c9b18c;
+        border-radius: 50%;
+        right: 20px;
+        top: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(10, 26, 42, 0.6);
+      }
+      .compass:before {
+        content: "N";
+        position: absolute;
+        top: 5px;
+        color: #c9b18c;
+        font-weight: bold;
+      }
+      .compass:after {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 40px;
+        background: linear-gradient(
+          to bottom,
+          #c9b18c 0%,
+          #c9b18c 50%,
+          #8a0000 50%,
+          #8a0000 100%
+        );
+        transform: rotate(45deg);
+      }
+      .notes {
+        margin-top: 30px;
+        padding: 15px;
+        border-top: 1px solid #c9b18c;
+        font-style: italic;
+        color: #8ca5c9;
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+      .coordinates {
+        position: absolute;
+        bottom: 10px;
+        right: 20px;
+        font-family: "Space Grotesk", monospace;
+        font-size: 0.8rem;
+        color: #8ca5c9;
+      }
+      .vintage-screws {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          #c9b18c 0%,
+          #8b7b5e 70%,
+          #5d4e36 100%
+        );
+        box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.8);
+      }
+      .screw-1 {
+        top: 15px;
+        left: 15px;
+      }
+      .screw-2 {
+        top: 15px;
+        right: 15px;
+      }
+      .screw-3 {
+        bottom: 15px;
+        left: 15px;
+      }
+      .screw-4 {
+        bottom: 15px;
+        right: 15px;
+      }
+      .button {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .button a {
+        display: inline-block;
+        padding: 8px 20px;
+        background-color: #1a3040;
+        color: #c9b18c;
+        text-decoration: none;
+        border: 1px solid #c9b18c;
+        font-family: "Space Grotesk", sans-serif;
+        transition: all 0.3s;
+      }
+      .button a:hover {
+        background-color: #c9b18c;
+        color: #1a3040;
+      }
+    </style>
+    <!-- p5.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <!-- OpenSimplex Noise library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/open-simplex-noise/1.0.0/simplex-noise.min.js"></script>
+    <!-- chroma.js for color manipulation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js"></script>
+  </head>
+  <body>
+    <div class="nautilus-container">
+      <div class="vintage-screws screw-1"></div>
+      <div class="vintage-screws screw-2"></div>
+      <div class="vintage-screws screw-3"></div>
+      <div class="vintage-screws screw-4"></div>
+
+      <div class="title-section">
+        <h1>Nautilus Navigation Chart</h1>
+        <div class="subtitle">
+          Charted by Captain Nemo - Sector 42, Pacific Ocean
+        </div>
+        <h2>Depth Analysis and Terrain Mapping</h2>
+      </div>
+
+      <div class="compass"></div>
+
+      <div class="chart-container">
+        <div id="sketch-holder"></div>
+      </div>
+
+      <div class="notes">
+        "The depths of the ocean hold secrets beyond imagination. This chart
+        maps the underwater terrain at coordinates 24°17'N, 37°35'W, where we
+        discovered remnants of ancient ruins. Numbers indicate depth in fathoms
+        — proceed with caution near shallows."
+        <div class="coordinates">— Captain Nemo, 1868</div>
+      </div>
+
+      <div class="button">
+        <a href="#">VIEW VESSEL LOG</a>
+      </div>
+    </div>
+
+    <script>
+      // Simplified version of SimplexNoise if the library doesn't load properly
+      class SimplexNoise {
+        constructor(seed) {
+          this.seed = seed || Math.random();
+        }
+
+        noise2D(x, y) {
+          // Simple Perlin-like noise as fallback
+          return (
+            Math.sin(x * 10 + this.seed) * Math.cos(y * 10 + this.seed) * 0.5 +
+            0.5
+          );
+        }
+      }
+
+      let simplex;
+      // Changed colors to more nautical/ocean-themed palette
+      let colors = [
+        "#0a2d42",
+        "#0a3a5c",
+        "#0e4f79",
+        "#126191",
+        "#1975aa",
+        "#1a87c4",
+        "#2c607a",
+        "#5a8c98",
+        "#7dada5",
+      ];
+      let chart;
+      let lines;
+      let customFont = "Space Grotesk";
+
+      function setup() {
+        // Create canvas in the sketch-holder div
+        let canvas = createCanvas(400, 400);
+        canvas.parent("sketch-holder");
+
+        // Create our own simplex noise implementation if library failed
+        try {
+          simplex = new openSimplexNoise(Date.now());
+        } catch (e) {
+          console.log("Using fallback noise generator");
+          simplex = new SimplexNoise(Date.now());
+        }
+
+        // Changed background to a more aged paper/parchment color
+        background("#e8ddc2");
+
+        chart = createGraphics(280, 280);
+        lines = createGraphics(280, 280);
+
+        for (let x = 0; x <= 280; x++) {
+          for (let y = 0; y <= 280; y++) {
+            chart.fill(colorMixer(x / 50, y / 50, colors));
+            chart.noStroke();
+            chart.rect(x, y, 1, 1);
+          }
+        }
+        image(chart, 60, 60);
+
+        for (let i = 0; i < 5; i++) {
+          lines.clear();
+          for (let x = 0; x <= 280; x++) {
+            for (let y = 0; y <= 280; y++) {
+              let fillIn = floor(noise(x / 50, y / 50) * colors.length);
+              lines.fill(255);
+              lines.noStroke();
+              if (fillIn == i) {
+                lines.rect(x, y, 1, 1);
+              }
+            }
+          }
+          push();
+
+          try {
+            lines.drawingContext.shadowBlur = 5;
+            lines.drawingContext.shadowColor = "black";
+          } catch (e) {
+            console.log("Shadow effects not supported, skipping");
+          }
+
+          blendMode(HARD_LIGHT);
+          image(lines, 60, 60);
+          pop();
+        }
+
+        for (let x = 15; x < chart.width; x += 30) {
+          for (let y = 15; y < chart.height; y += 30) {
+            let xoff = random(-5, 5);
+            let yoff = random(-5, 5);
+            let newX = x + xoff;
+            let newY = y + yoff;
+            let c = floor(noise(newX / 50, newY / 50) * colors.length);
+            if (c < 5) {
+              // Changed to show fathoms instead of elevation
+              let depth = floor(map(c, 0, 4, 60, 200));
+              push();
+              textSize(7);
+              textAlign(CENTER, CENTER);
+              fill(255, 245, 230);
+              noStroke();
+              text(depth, newX + 60, newY + 60);
+              pop();
+            }
+          }
+        }
+
+        // Outer border/frame
+        fill("#e8ddc2");
+        noStroke();
+        rect(0, 0, width, 60);
+        rect(0, 0, 60, height);
+        rect(340, 0, 60, height);
+        rect(0, 340, width, 60);
+
+        // Add nautical scale and coordinates
+        noFill();
+        fill(70, 50, 30);
+        textSize(8);
+        text("SCALE: 1 inch = 10 nautical miles", 20, 360);
+        textSize(7);
+        text("24°17'N, 37°35'W", 20, 380);
+
+        // Add nautical compass marks around the edge
+        push();
+        stroke("#6d5c3d");
+        strokeWeight(1);
+        textAlign(CENTER, CENTER);
+        textSize(8);
+
+        // North
+        text("N", 200, 40);
+        line(200, 44, 200, 54);
+
+        // East
+        text("E", 360, 200);
+        line(356, 200, 346, 200);
+
+        // South
+        text("S", 200, 360);
+        line(200, 356, 200, 346);
+
+        // West
+        text("W", 40, 200);
+        line(44, 200, 54, 200);
+
+        // Add Nautilus silhouette
+        /*
+        stroke("#6d5c3d");
+        strokeWeight(1);
+        noFill();
+        */
+        // Simple submarine outline
+        /*
+        beginShape();
+        vertex(320, 40);
+        vertex(330, 35);
+        vertex(345, 35);
+        vertex(350, 40);
+        vertex(345, 45);
+        vertex(330, 45);
+        vertex(320, 40);
+        endShape();
+        */
+
+        // Add decorative elements to corners
+        drawDecorativeCorner(65, 65);
+        drawDecorativeCorner(335, 65, true);
+        drawDecorativeCorner(65, 335, false, true);
+        drawDecorativeCorner(335, 335, true, true);
+
+        pop();
+      }
+
+      // Function to draw decorative corner elements
+      function drawDecorativeCorner(x, y, flipX = false, flipY = false) {
+        push();
+        translate(x, y);
+        if (flipX) scale(-1, 1);
+        if (flipY) scale(1, -1);
+
+        stroke("#6d5c3d");
+        strokeWeight(1);
+        noFill();
+
+        // Decorative corner flourish
+        beginShape();
+        vertex(0, 0);
+        vertex(5, -5);
+        vertex(15, -7);
+        vertex(10, 0);
+        vertex(15, 7);
+        vertex(5, 5);
+        vertex(0, 0);
+        endShape();
+
+        pop();
+      }
+
+      function colorMixer(x, y, colorArray) {
+        let c = noise(x, y) * colorArray.length;
+        let c1 = floor(c);
+        let c2 = floor(c + 1) % colorArray.length;
+        let color1 = colorArray[c1];
+        let color2 = colorArray[c2];
+        let mix = fract(c);
+
+        // Create a simple color mixing fallback if chroma.js isn't loaded
+        let mixedColor;
+        try {
+          if (typeof chroma !== "undefined") {
+            mixedColor = chroma.mix(color1, color2, mix).hex();
+          } else {
+            // Simple linear interpolation of hex colors
+            mixedColor = lerpColor(color(color1), color(color2), mix);
+          }
+        } catch (e) {
+          // Use first color as fallback
+          mixedColor = color1;
+        }
+
+        return color(mixedColor);
+      }
+
+      // Helper function since p5.js has fract but it might not be available globally
+      function fract(x) {
+        return x - Math.floor(x);
+      }
+
+      // Noise function that works with the p5.js noise system
+      function noise(x, y) {
+        try {
+          return simplex.noise2D(x, y);
+        } catch (e) {
+          // Fallback to p5's noise function
+          return noise(x, y);
+        }
+      }
+
+      // Spectral object for mixing
+      window.spectral = {
+        mix: function (color1, color2, mix) {
+          try {
+            if (typeof chroma !== "undefined") {
+              return chroma.mix(color1, color2, mix).hex();
+            } else {
+              return lerpColor(color(color1), color(color2), mix);
+            }
+          } catch (e) {
+            return color1;
+          }
+        },
+      };
+    </script>
+  </body>
+</html>
