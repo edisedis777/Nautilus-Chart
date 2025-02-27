@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nautilus Navigation Chart</title>
-    <!-- Add Google Fonts: Space Grotesk and a decorative font for titles -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -67,7 +66,6 @@
         justify-content: center;
         margin: 20px auto;
       }
-      /* Compass container styles */
       .compass-container {
         position: relative;
         width: 100px;
@@ -75,7 +73,6 @@
         cursor: pointer;
         margin: 0 auto;
       }
-      /* Compass rose styles */
       .compass-rose {
         position: absolute;
         width: 100%;
@@ -87,13 +84,12 @@
         left: 0;
         top: 0;
       }
-      /* Compass needle styles - fixed to center properly */
       .compass-needle {
         position: absolute;
-        top: 50%; /* Center vertically */
-        left: 50%; /* Center horizontally */
+        top: 50%;
+        left: 50%;
         width: 2px;
-        height: 70%; /* Maintain original height */
+        height: 70%;
         background: linear-gradient(
           to bottom,
           #c9b18c 0%,
@@ -101,17 +97,15 @@
           #8a0000 50%,
           #8a0000 100%
         );
-        transform-origin: center center; /* Rotate around center point */
-        transform: translate(-50%, -50%); /* Offset to true center */
+        transform-origin: center center;
+        transform: translate(-50%, -50%);
       }
-      /* Compass direction container */
       .compass-direction {
         position: absolute;
         width: 100%;
         height: 100%;
         pointer-events: none;
       }
-      /* Direction label styles */
       .direction {
         position: absolute;
         font-size: 0.8rem;
@@ -225,7 +219,6 @@
         color: #1a3040;
       }
 
-      /* Media Queries for Responsive Design */
       @media (max-width: 768px) {
         .nautilus-container {
           padding: 15px;
@@ -277,9 +270,7 @@
         }
       }
     </style>
-    <!-- p5.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
-    <!-- chroma.js for color manipulation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js"></script>
   </head>
   <body>
@@ -297,7 +288,6 @@
         <h2>Depth Analysis and Terrain Mapping</h2>
       </div>
 
-      <!-- Interactive compass -->
       <div class="interactive-compass">
         <div class="compass-container" id="compass-container">
           <div class="compass-rose" id="compass-rose">
@@ -327,51 +317,36 @@
       </div>
 
       <div class="button">
-        <a href="#">VIEW VESSEL LOG</a>
+        <a href="log.html">VIEW VESSEL LOG</a>
       </div>
     </div>
 
     <script>
-      // Interactive compass functionality - updated for random rotation on click
       document.addEventListener("DOMContentLoaded", function () {
-        // Get references to DOM elements
         const compassNeedle = document.getElementById("compass-needle");
         const compassContainer = document.getElementById("compass-container");
-
-        // Variable to track current rotation
         let currentRotation = 0;
-
-        // Function to handle compass rotation
         function rotateCompass(degrees) {
           currentRotation = degrees;
-          // Apply rotation transform, ensuring center alignment
           compassNeedle.style.transform = `translate(-50%, -50%) rotate(${degrees}deg)`;
         }
-
-        // Initialize compass with a default position
         rotateCompass(0);
-
-        // Add click event for random rotation
         compassContainer.addEventListener("click", function () {
-          // Generate random rotation between 0 and 359 degrees
           const randomRotation = Math.floor(Math.random() * 360);
-          // Apply the random rotation
           rotateCompass(randomRotation);
         });
       });
 
-      // Make the canvas responsive
       function windowResized() {
         const container = document.querySelector(".chart-container");
         if (container) {
-          const containerWidth = container.offsetWidth - 20; // Account for padding
+          const containerWidth = container.offsetWidth - 20;
           const canvasSize = Math.min(containerWidth, 400);
           resizeCanvas(canvasSize, canvasSize);
           redraw();
         }
       }
 
-      // Colors to more nautical/ocean-themed palette
       let colors = [
         "#0a2d42",
         "#0a3a5c",
@@ -388,36 +363,26 @@
       let customFont = "Space Grotesk";
       let canvasSize = 400;
 
-      // Custom noise function that doesn't rely on external library
       function customNoise(x, y) {
-        // Simple Perlin-like noise as fallback
         if (typeof noise === "function" && typeof noise(0.5) === "number") {
           return noise(x, y);
         } else {
-          // Simple noise function as fallback
-          const seed = 42; // Fixed seed for consistency
+          const seed = 42;
           return Math.sin(x * 10 + seed) * Math.cos(y * 10 + seed) * 0.5 + 0.5;
         }
       }
 
       function setup() {
-        // Create responsive canvas in the sketch-holder div
         const container = document.querySelector(".chart-container");
         if (container) {
-          const containerWidth = container.offsetWidth - 20; // Account for padding
+          const containerWidth = container.offsetWidth - 20;
           canvasSize = min(containerWidth, 400);
         }
-
         let canvas = createCanvas(canvasSize, canvasSize);
         canvas.parent("sketch-holder");
-
-        // Changed background to a more aged paper/parchment color
         background("#e8ddc2");
-
-        // Calculate chart size based on canvas
         const chartSize = floor(canvasSize * 0.7);
         const margin = floor((canvasSize - chartSize) / 2);
-
         chart = createGraphics(chartSize, chartSize);
         lines = createGraphics(chartSize, chartSize);
 
@@ -448,14 +413,12 @@
             }
           }
           push();
-
           try {
             lines.drawingContext.shadowBlur = 5;
             lines.drawingContext.shadowColor = "black";
           } catch (e) {
             console.log("Shadow effects not supported, skipping");
           }
-
           blendMode(HARD_LIGHT);
           image(lines, margin, margin);
           pop();
@@ -480,7 +443,6 @@
                 colors.length
             );
             if (c < 5) {
-              // Changed to show fathoms instead of elevation
               let depth = floor(map(c, 0, 4, 60, 200));
               push();
               textSize(canvasSize / 57);
@@ -493,7 +455,6 @@
           }
         }
 
-        // Outer border/frame
         fill("#e8ddc2");
         noStroke();
         rect(0, 0, width, margin);
@@ -501,7 +462,6 @@
         rect(canvasSize - margin, 0, margin, height);
         rect(0, canvasSize - margin, width, margin);
 
-        // Add nautical scale and coordinates
         fill(70, 50, 30);
         textSize(canvasSize / 50);
         text(
@@ -512,14 +472,11 @@
         textSize(canvasSize / 57);
         text("24°17'N, 37°35'W", canvasSize / 20, canvasSize - canvasSize / 20);
 
-        // Add nautical compass marks around the edge
         push();
         stroke("#6d5c3d");
         strokeWeight(1);
         textAlign(CENTER, CENTER);
         textSize(canvasSize / 50);
-
-        // North
         text("N", canvasSize / 2, canvasSize / 10);
         line(
           canvasSize / 2,
@@ -527,8 +484,6 @@
           canvasSize / 2,
           canvasSize / 7.41
         );
-
-        // East
         text("E", canvasSize - canvasSize / 10, canvasSize / 2);
         line(
           canvasSize - canvasSize / 9.09,
@@ -536,8 +491,6 @@
           canvasSize - canvasSize / 7.41,
           canvasSize / 2
         );
-
-        // South
         text("S", canvasSize / 2, canvasSize - canvasSize / 10);
         line(
           canvasSize / 2,
@@ -545,8 +498,6 @@
           canvasSize / 2,
           canvasSize - canvasSize / 7.41
         );
-
-        // West
         text("W", canvasSize / 10, canvasSize / 2);
         line(
           canvasSize / 9.09,
@@ -554,11 +505,9 @@
           canvasSize / 7.41,
           canvasSize / 2
         );
-
         pop();
       }
 
-      // Function to mix colors for the terrain
       function colorMixer(x, y, colorArray) {
         let c = customNoise(x, y) * colorArray.length;
         let c1 = floor(c);
@@ -566,30 +515,23 @@
         let color1 = colorArray[c1];
         let color2 = colorArray[c2];
         let mix = fract(c);
-
-        // Create a simple color mixing fallback if chroma.js isn't loaded
         let mixedColor;
         try {
           if (typeof chroma !== "undefined") {
             mixedColor = chroma.mix(color1, color2, mix).hex();
           } else {
-            // Simple linear interpolation of hex colors
             mixedColor = lerpColor(color(color1), color(color2), mix);
           }
         } catch (e) {
-          // Use first color as fallback
           mixedColor = color1;
         }
-
         return color(mixedColor);
       }
 
-      // Helper function since p5.js has fract but it might not be available globally
       function fract(x) {
         return x - Math.floor(x);
       }
 
-      // Event listener for window resize
       window.addEventListener("resize", function () {
         if (typeof windowResized === "function") {
           windowResized();
