@@ -30,14 +30,15 @@
         position: relative;
         width: 90%;
         max-width: 800px;
-        padding: 40px;
+        padding: 20px;
+        margin: 20px 0;
         background-color: rgba(10, 26, 42, 0.85);
         border: 8px double #c9b18c;
         box-shadow: 0 0 30px rgba(0, 128, 128, 0.3);
       }
       .title-section {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         border-bottom: 1px solid #c9b18c;
         padding-bottom: 20px;
       }
@@ -45,13 +46,13 @@
         font-family: "Cinzel Decorative", cursive;
         color: #c9b18c;
         margin: 0;
-        font-size: 2.5rem;
+        font-size: 2rem;
         letter-spacing: 2px;
       }
       h2 {
         font-family: "Cinzel Decorative", cursive;
         color: #c9b18c;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         margin: 10px 0;
         font-weight: normal;
       }
@@ -59,47 +60,40 @@
         font-style: italic;
         margin-top: 10px;
         color: #8ca5c9;
+        font-size: 0.9rem;
       }
-      .chart-container {
-        position: relative;
-        margin: 20px auto;
-        width: 440px;
-        height: 440px;
-        border: 5px solid #c9b18c;
-        border-radius: 5px;
-        padding: 10px;
-        background-color: rgba(28, 43, 53, 0.7);
-      }
-      canvas {
-        display: block;
-        margin: 0 auto;
-        box-shadow: 0 0 20px rgba(0, 128, 128, 0.2);
-      }
-      .compass {
-        position: absolute;
-        width: 70px;
-        height: 70px;
-        border: 2px solid #c9b18c;
-        border-radius: 50%;
-        right: 20px;
-        top: 70px;
+      .interactive-compass {
         display: flex;
         justify-content: center;
-        align-items: center;
+        margin: 20px auto;
+      }
+      /* Compass container styles */
+      .compass-container {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        margin: 0 auto;
+      }
+      /* Compass rose styles */
+      .compass-rose {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 2px solid #c9b18c;
+        border-radius: 50%;
         background-color: rgba(10, 26, 42, 0.6);
+        transition: transform 0.5s ease;
+        left: 0;
+        top: 0;
       }
-      .compass:before {
-        content: "N";
+      /* Compass needle styles - fixed to center properly */
+      .compass-needle {
         position: absolute;
-        top: 5px;
-        color: #c9b18c;
-        font-weight: bold;
-      }
-      .compass:after {
-        content: "";
-        position: absolute;
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
         width: 2px;
-        height: 40px;
+        height: 70%; /* Maintain original height */
         background: linear-gradient(
           to bottom,
           #c9b18c 0%,
@@ -107,7 +101,64 @@
           #8a0000 50%,
           #8a0000 100%
         );
-        transform: rotate(45deg);
+        transform-origin: center center; /* Rotate around center point */
+        transform: translate(-50%, -50%); /* Offset to true center */
+      }
+      /* Compass direction container */
+      .compass-direction {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+      /* Direction label styles */
+      .direction {
+        position: absolute;
+        font-size: 0.8rem;
+        color: #c9b18c;
+        font-weight: bold;
+      }
+      .direction.n {
+        top: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .direction.e {
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .direction.s {
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .direction.w {
+        left: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .chart-container {
+        position: relative;
+        margin: 20px auto;
+        width: 100%;
+        max-width: 440px;
+        border: 5px solid #c9b18c;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: rgba(28, 43, 53, 0.7);
+        box-sizing: border-box;
+      }
+      canvas {
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        height: auto;
+        box-shadow: 0 0 20px rgba(0, 128, 128, 0.2);
+        box-sizing: border-box;
+      }
+      .compass {
+        display: none;
       }
       .notes {
         margin-top: 30px;
@@ -119,9 +170,9 @@
         line-height: 1.6;
       }
       .coordinates {
-        position: absolute;
-        bottom: 10px;
-        right: 20px;
+        position: relative;
+        text-align: right;
+        margin-top: 10px;
         font-family: "Space Grotesk", monospace;
         font-size: 0.8rem;
         color: #8ca5c9;
@@ -173,11 +224,61 @@
         background-color: #c9b18c;
         color: #1a3040;
       }
+
+      /* Media Queries for Responsive Design */
+      @media (max-width: 768px) {
+        .nautilus-container {
+          padding: 15px;
+          border-width: 6px;
+        }
+        h1 {
+          font-size: 1.6rem;
+        }
+        h2 {
+          font-size: 1rem;
+        }
+        .chart-container {
+          border-width: 3px;
+          padding: 5px;
+        }
+        .notes {
+          font-size: 0.8rem;
+          margin-top: 20px;
+          padding: 10px;
+        }
+        .vintage-screws {
+          width: 8px;
+          height: 8px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .nautilus-container {
+          padding: 10px;
+          border-width: 4px;
+          width: 95%;
+        }
+        h1 {
+          font-size: 1.3rem;
+        }
+        h2 {
+          font-size: 0.9rem;
+        }
+        .subtitle {
+          font-size: 0.8rem;
+        }
+        .compass-container {
+          width: 80px;
+          height: 80px;
+        }
+        .button a {
+          padding: 6px 15px;
+          font-size: 0.9rem;
+        }
+      }
     </style>
     <!-- p5.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
-    <!-- OpenSimplex Noise library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/open-simplex-noise/1.0.0/simplex-noise.min.js"></script>
     <!-- chroma.js for color manipulation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js"></script>
   </head>
@@ -194,6 +295,21 @@
           Charted by Captain Nemo - Sector 42, Pacific Ocean
         </div>
         <h2>Depth Analysis and Terrain Mapping</h2>
+      </div>
+
+      <!-- Interactive compass -->
+      <div class="interactive-compass">
+        <div class="compass-container" id="compass-container">
+          <div class="compass-rose" id="compass-rose">
+            <div class="compass-needle" id="compass-needle"></div>
+            <div class="compass-direction">
+              <div class="direction n">N</div>
+              <div class="direction e">E</div>
+              <div class="direction s">S</div>
+              <div class="direction w">W</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="compass"></div>
@@ -216,23 +332,46 @@
     </div>
 
     <script>
-      // Simplified version of SimplexNoise if the library doesn't load properly
-      class SimplexNoise {
-        constructor(seed) {
-          this.seed = seed || Math.random();
+      // Interactive compass functionality - updated for random rotation on click
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get references to DOM elements
+        const compassNeedle = document.getElementById("compass-needle");
+        const compassContainer = document.getElementById("compass-container");
+
+        // Variable to track current rotation
+        let currentRotation = 0;
+
+        // Function to handle compass rotation
+        function rotateCompass(degrees) {
+          currentRotation = degrees;
+          // Apply rotation transform, ensuring center alignment
+          compassNeedle.style.transform = `translate(-50%, -50%) rotate(${degrees}deg)`;
         }
 
-        noise2D(x, y) {
-          // Simple Perlin-like noise as fallback
-          return (
-            Math.sin(x * 10 + this.seed) * Math.cos(y * 10 + this.seed) * 0.5 +
-            0.5
-          );
+        // Initialize compass with a default position
+        rotateCompass(0);
+
+        // Add click event for random rotation
+        compassContainer.addEventListener("click", function () {
+          // Generate random rotation between 0 and 359 degrees
+          const randomRotation = Math.floor(Math.random() * 360);
+          // Apply the random rotation
+          rotateCompass(randomRotation);
+        });
+      });
+
+      // Make the canvas responsive
+      function windowResized() {
+        const container = document.querySelector(".chart-container");
+        if (container) {
+          const containerWidth = container.offsetWidth - 20; // Account for padding
+          const canvasSize = Math.min(containerWidth, 400);
+          resizeCanvas(canvasSize, canvasSize);
+          redraw();
         }
       }
 
-      let simplex;
-      // Changed colors to more nautical/ocean-themed palette
+      // Colors to more nautical/ocean-themed palette
       let colors = [
         "#0a2d42",
         "#0a3a5c",
@@ -247,40 +386,60 @@
       let chart;
       let lines;
       let customFont = "Space Grotesk";
+      let canvasSize = 400;
+
+      // Custom noise function that doesn't rely on external library
+      function customNoise(x, y) {
+        // Simple Perlin-like noise as fallback
+        if (typeof noise === "function" && typeof noise(0.5) === "number") {
+          return noise(x, y);
+        } else {
+          // Simple noise function as fallback
+          const seed = 42; // Fixed seed for consistency
+          return Math.sin(x * 10 + seed) * Math.cos(y * 10 + seed) * 0.5 + 0.5;
+        }
+      }
 
       function setup() {
-        // Create canvas in the sketch-holder div
-        let canvas = createCanvas(400, 400);
-        canvas.parent("sketch-holder");
-
-        // Create our own simplex noise implementation if library failed
-        try {
-          simplex = new openSimplexNoise(Date.now());
-        } catch (e) {
-          console.log("Using fallback noise generator");
-          simplex = new SimplexNoise(Date.now());
+        // Create responsive canvas in the sketch-holder div
+        const container = document.querySelector(".chart-container");
+        if (container) {
+          const containerWidth = container.offsetWidth - 20; // Account for padding
+          canvasSize = min(containerWidth, 400);
         }
+
+        let canvas = createCanvas(canvasSize, canvasSize);
+        canvas.parent("sketch-holder");
 
         // Changed background to a more aged paper/parchment color
         background("#e8ddc2");
 
-        chart = createGraphics(280, 280);
-        lines = createGraphics(280, 280);
+        // Calculate chart size based on canvas
+        const chartSize = floor(canvasSize * 0.7);
+        const margin = floor((canvasSize - chartSize) / 2);
 
-        for (let x = 0; x <= 280; x++) {
-          for (let y = 0; y <= 280; y++) {
-            chart.fill(colorMixer(x / 50, y / 50, colors));
+        chart = createGraphics(chartSize, chartSize);
+        lines = createGraphics(chartSize, chartSize);
+
+        for (let x = 0; x <= chartSize; x++) {
+          for (let y = 0; y <= chartSize; y++) {
+            chart.fill(
+              colorMixer(x / (chartSize / 5.6), y / (chartSize / 5.6), colors)
+            );
             chart.noStroke();
             chart.rect(x, y, 1, 1);
           }
         }
-        image(chart, 60, 60);
+        image(chart, margin, margin);
 
         for (let i = 0; i < 5; i++) {
           lines.clear();
-          for (let x = 0; x <= 280; x++) {
-            for (let y = 0; y <= 280; y++) {
-              let fillIn = floor(noise(x / 50, y / 50) * colors.length);
+          for (let x = 0; x <= chartSize; x++) {
+            for (let y = 0; y <= chartSize; y++) {
+              let fillIn = floor(
+                customNoise(x / (chartSize / 5.6), y / (chartSize / 5.6)) *
+                  colors.length
+              );
               lines.fill(255);
               lines.noStroke();
               if (fillIn == i) {
@@ -298,26 +457,37 @@
           }
 
           blendMode(HARD_LIGHT);
-          image(lines, 60, 60);
+          image(lines, margin, margin);
           pop();
         }
 
-        for (let x = 15; x < chart.width; x += 30) {
-          for (let y = 15; y < chart.height; y += 30) {
-            let xoff = random(-5, 5);
-            let yoff = random(-5, 5);
+        for (
+          let x = chartSize / 18.67;
+          x < chart.width;
+          x += chartSize / 9.33
+        ) {
+          for (
+            let y = chartSize / 18.67;
+            y < chart.height;
+            y += chartSize / 9.33
+          ) {
+            let xoff = random(-chartSize / 56, chartSize / 56);
+            let yoff = random(-chartSize / 56, chartSize / 56);
             let newX = x + xoff;
             let newY = y + yoff;
-            let c = floor(noise(newX / 50, newY / 50) * colors.length);
+            let c = floor(
+              customNoise(newX / (chartSize / 5.6), newY / (chartSize / 5.6)) *
+                colors.length
+            );
             if (c < 5) {
               // Changed to show fathoms instead of elevation
               let depth = floor(map(c, 0, 4, 60, 200));
               push();
-              textSize(7);
+              textSize(canvasSize / 57);
               textAlign(CENTER, CENTER);
               fill(255, 245, 230);
               noStroke();
-              text(depth, newX + 60, newY + 60);
+              text(depth, newX + margin, newY + margin);
               pop();
             }
           }
@@ -326,78 +496,71 @@
         // Outer border/frame
         fill("#e8ddc2");
         noStroke();
-        rect(0, 0, width, 60);
-        rect(0, 0, 60, height);
-        rect(340, 0, 60, height);
-        rect(0, 340, width, 60);
+        rect(0, 0, width, margin);
+        rect(0, 0, margin, height);
+        rect(canvasSize - margin, 0, margin, height);
+        rect(0, canvasSize - margin, width, margin);
 
         // Add nautical scale and coordinates
-        noFill();
         fill(70, 50, 30);
-        textSize(8);
-        text("SCALE: 1 inch = 10 nautical miles", 20, 360);
-        textSize(7);
-        text("24°17'N, 37°35'W", 20, 380);
+        textSize(canvasSize / 50);
+        text(
+          "SCALE: 1 inch = 10 nautical miles",
+          canvasSize / 20,
+          canvasSize - canvasSize / 10
+        );
+        textSize(canvasSize / 57);
+        text("24°17'N, 37°35'W", canvasSize / 20, canvasSize - canvasSize / 20);
 
         // Add nautical compass marks around the edge
         push();
         stroke("#6d5c3d");
         strokeWeight(1);
         textAlign(CENTER, CENTER);
-        textSize(8);
+        textSize(canvasSize / 50);
 
         // North
-        text("N", 200, 40);
-        line(200, 44, 200, 54);
+        text("N", canvasSize / 2, canvasSize / 10);
+        line(
+          canvasSize / 2,
+          canvasSize / 9.09,
+          canvasSize / 2,
+          canvasSize / 7.41
+        );
 
         // East
-        text("E", 360, 200);
-        line(356, 200, 346, 200);
+        text("E", canvasSize - canvasSize / 10, canvasSize / 2);
+        line(
+          canvasSize - canvasSize / 9.09,
+          canvasSize / 2,
+          canvasSize - canvasSize / 7.41,
+          canvasSize / 2
+        );
 
         // South
-        text("S", 200, 360);
-        line(200, 356, 200, 346);
+        text("S", canvasSize / 2, canvasSize - canvasSize / 10);
+        line(
+          canvasSize / 2,
+          canvasSize - canvasSize / 9.09,
+          canvasSize / 2,
+          canvasSize - canvasSize / 7.41
+        );
 
         // West
-        text("W", 40, 200);
-        line(44, 200, 54, 200);
-
-        // Add decorative elements to corners
-        drawDecorativeCorner(65, 65);
-        drawDecorativeCorner(335, 65, true);
-        drawDecorativeCorner(65, 335, false, true);
-        drawDecorativeCorner(335, 335, true, true);
-
-        pop();
-      }
-
-      // Function to draw decorative corner elements
-      function drawDecorativeCorner(x, y, flipX = false, flipY = false) {
-        push();
-        translate(x, y);
-        if (flipX) scale(-1, 1);
-        if (flipY) scale(1, -1);
-
-        stroke("#6d5c3d");
-        strokeWeight(1);
-        noFill();
-
-        // Decorative corner flourish
-        beginShape();
-        vertex(0, 0);
-        vertex(5, -5);
-        vertex(15, -7);
-        vertex(10, 0);
-        vertex(15, 7);
-        vertex(5, 5);
-        vertex(0, 0);
-        endShape();
+        text("W", canvasSize / 10, canvasSize / 2);
+        line(
+          canvasSize / 9.09,
+          canvasSize / 2,
+          canvasSize / 7.41,
+          canvasSize / 2
+        );
 
         pop();
       }
 
+      // Function to mix colors for the terrain
       function colorMixer(x, y, colorArray) {
-        let c = noise(x, y) * colorArray.length;
+        let c = customNoise(x, y) * colorArray.length;
         let c1 = floor(c);
         let c2 = floor(c + 1) % colorArray.length;
         let color1 = colorArray[c1];
@@ -426,30 +589,12 @@
         return x - Math.floor(x);
       }
 
-      // Noise function that works with the p5.js noise system
-      function noise(x, y) {
-        try {
-          return simplex.noise2D(x, y);
-        } catch (e) {
-          // Fallback to p5's noise function
-          return noise(x, y);
+      // Event listener for window resize
+      window.addEventListener("resize", function () {
+        if (typeof windowResized === "function") {
+          windowResized();
         }
-      }
-
-      // Spectral object for mixing
-      window.spectral = {
-        mix: function (color1, color2, mix) {
-          try {
-            if (typeof chroma !== "undefined") {
-              return chroma.mix(color1, color2, mix).hex();
-            } else {
-              return lerpColor(color(color1), color(color2), mix);
-            }
-          } catch (e) {
-            return color1;
-          }
-        },
-      };
+      });
     </script>
   </body>
 </html>
