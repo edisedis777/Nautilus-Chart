@@ -58,6 +58,7 @@
         background-color: rgba(28, 43, 53, 0.7);
         border: 2px solid #c9b18c;
         font-size: 0.9rem;
+        margin-bottom: 20px;
       }
 
       .log-table th,
@@ -79,13 +80,33 @@
         vertical-align: middle;
       }
 
-      /* Icon styling */
       .log-icon {
         width: 20px;
         height: 20px;
         margin-right: 8px;
         vertical-align: middle;
-        fill: #c9b18c; /* Matches original text color */
+        fill: #c9b18c;
+      }
+
+      .sketch-container {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .sketch-image {
+        max-width: 100%;
+        height: auto;
+        border: 2px solid #c9b18c;
+        border-radius: 5px;
+        background-color: rgba(28, 43, 53, 0.7);
+        padding: 5px;
+      }
+
+      .sketch-caption {
+        font-style: italic;
+        color: #8ca5c9;
+        font-size: 0.8rem;
+        margin-top: 10px;
       }
 
       .button {
@@ -160,6 +181,9 @@
           height: 16px;
           margin-right: 6px;
         }
+        .sketch-image {
+          max-width: 90%;
+        }
         .vintage-screws {
           width: 8px;
           height: 8px;
@@ -186,6 +210,12 @@
           width: 14px;
           height: 14px;
           margin-right: 4px;
+        }
+        .sketch-image {
+          max-width: 85%;
+        }
+        .sketch-caption {
+          font-size: 0.7rem;
         }
         .button a {
           padding: 6px 15px;
@@ -217,11 +247,12 @@
                 d="M12 2v20m-6-14h12m-12 8h12"
                 stroke="#c9b18c"
                 stroke-width="2"
-                fill="none" />
+                fill="none"
+              />
             </svg>
             Location
           </th>
-          <td>Sector 42, Pacific Ocean (24°17'N, 37°35'W)</td>
+          <td>Near Santorin, Mediterranean Sea (36°24'N, 25°26'E)</td>
         </tr>
         <tr>
           <th>
@@ -230,11 +261,12 @@
                 d="M12 2v6m0 2v12m-4 0h8m-8-6h8"
                 stroke="#c9b18c"
                 stroke-width="2"
-                fill="none" />
+                fill="none"
+              />
             </svg>
             Water Temp
           </th>
-          <td>4°C</td>
+          <td>12°C</td>
         </tr>
         <tr>
           <th>
@@ -243,11 +275,12 @@
                 d="M12 2c-4 8-4 12 0 18s4-10 0-18"
                 stroke="#c9b18c"
                 stroke-width="2"
-                fill="none" />
+                fill="none"
+              />
             </svg>
             Salinity
           </th>
-          <td>35 ppt</td>
+          <td>38 ppt</td>
         </tr>
         <tr>
           <th>
@@ -256,11 +289,12 @@
                 d="M12 2v20m-8-4l8-8 8 8"
                 stroke="#c9b18c"
                 stroke-width="2"
-                fill="none" />
+                fill="none"
+              />
             </svg>
             Depth
           </th>
-          <td>180 fathoms</td>
+          <td>50 fathoms</td>
         </tr>
         <tr>
           <th>
@@ -269,11 +303,12 @@
                 d="M4 12h16m-8-8v16"
                 stroke="#c9b18c"
                 stroke-width="2"
-                fill="none" />
+                fill="none"
+              />
             </svg>
             Notable Findings
           </th>
-          <td>Unidentified metallic fragments, possibly shipwreck debris</td>
+          <td>Submarine coal deposits, volcanic rock formations</td>
         </tr>
         <tr>
           <th>
@@ -282,16 +317,28 @@
                 d="M4 16c2-4 6-6 8 0 2-6 6-4 8 0"
                 stroke="#c9b18c"
                 stroke-width="2"
-                fill="none" />
+                fill="none"
+              />
             </svg>
             Observations
           </th>
-          <td>Bioluminescent organisms sighted—species unknown</td>
+          <td>Coal extraction viable, faint volcanic glow detected</td>
         </tr>
       </table>
 
       <div class="button">
         <a href="index.html">RETURN TO CHART</a>
+      </div>
+
+      <div class="sketch-container">
+        <img
+          class="sketch-image"
+          src="images/sketch.jpg"
+          alt="Sketch of divers at the submarine coal mines"
+        />
+        <div class="sketch-caption">
+          Sketch: Divers exploring the submarine coal mines near Santorin
+        </div>
       </div>
     </div>
   </body>
