@@ -2,8 +2,6 @@
 
 <img alt="Screenshot-Nautilus" src="https://github.com/user-attachments/assets/2bd11dd4-39a1-41a5-8cba-ca6982ce26c0" />
 
-
-
 A nautical-themed interactive web application featuring a vintage-style ocean depth chart, a vessel log page, and a clickable compass. Built with HTML, CSS, and JavaScript.
 
 ## Features
@@ -12,7 +10,7 @@ A nautical-themed interactive web application featuring a vintage-style ocean de
 * Responsive Design: Adapts seamlessly to different screen sizes with a mobile-friendly layout.
 
 ## Demo
-Open [index.html](https://edisedis777.github.io/Nautilus-Chart/) in a browser to explore the chart and interact with the compass.
+* Open [index.html](https://edisedis777.github.io/Nautilus-Chart/) in a browser to explore the chart and interact with the compass.
 
 ## Technologies
 * HTML/CSS/JavaScript: Core structure.
