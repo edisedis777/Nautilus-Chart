@@ -27,7 +27,8 @@ Refresh the page to load a randomly generated map.
 Click on the **View Vessel Log** to see a Nautilus Log entry. 
 
 ## Credits
-Twenty Thousand Leagues under the Sea by Jules Verne. Project Gutenberg [Link](https://www.gutenberg.org/ebooks/164)
+Twenty Thousand Leagues under the Sea by Jules Verne. 
+Read it [here](https://www.gutenberg.org/ebooks/164) on Project Gutenberg for free. 
 
 ## License
 MIT License - feel free to use, modify, and distribute!
