@@ -1,6 +1,6 @@
 # Nautilus Navigation Chart
 
-<img heigth="600" width="893" alt="Screenshot 2025-02-26 at 12 35 35" src="https://github.com/user-attachments/assets/788d84f3-1908-4a97-8877-ad7282e0a50e" />
+<img heigth="400" width="893" alt="Screenshot 2025-02-26 at 12 35 35" src="https://github.com/user-attachments/assets/788d84f3-1908-4a97-8877-ad7282e0a50e" />
 
 
 A nautical-themed interactive web application featuring a vintage-style ocean depth chart and a clickable compass. Built with HTML, CSS, and JavaScript, leveraging p5.js for the map and Chroma.js for color manipulation.
