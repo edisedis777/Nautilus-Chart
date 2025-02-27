@@ -2,7 +2,10 @@
 
 <img alt="Screenshot-Nautilus" src="https://github.com/user-attachments/assets/2bd11dd4-39a1-41a5-8cba-ca6982ce26c0" />
 
-A nautical-themed interactive web application featuring a vintage-style ocean depth chart, a vessel log page, and a clickable compass. Built with HTML, CSS, and JavaScript.
+A nautical-themed interactive web application featuring:
+* ocean depth chart
+* vessel log page
+* clickable compass.
 
 ## Features
 * Interactive Compass: Click to randomly rotate the compass needle, centered perfectly within its rose.
