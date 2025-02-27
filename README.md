@@ -23,6 +23,7 @@ Google Fonts: Typography.
 ## Usage
 Click the compass to see it spin to a random direction.
 Refresh the page to load a randomly generated map. 
+Click on the **View Vessel Log** to see a Nautilus Log entry. 
 
 ## License
 MIT License - feel free to use, modify, and distribute!
