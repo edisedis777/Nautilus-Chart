@@ -25,5 +25,8 @@ Click the compass to see it spin to a random direction.
 Refresh the page to load a randomly generated map. 
 Click on the **View Vessel Log** to see a Nautilus Log entry. 
 
+## Credits
+Twenty Thousand Leagues under the Sea by Jules Verne. Project Gutenberg [Link](https://www.gutenberg.org/ebooks/164)
+
 ## License
 MIT License - feel free to use, modify, and distribute!
