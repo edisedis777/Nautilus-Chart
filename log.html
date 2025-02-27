@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vessel Log - Nautilus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Cinzel+Decorative:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #0a1a2a;
+        background-image: url("/api/placeholder/1200/800");
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: overlay;
+        font-family: "Space Grotesk", sans-serif;
+        color: #c9b18c;
+      }
+
+      .log-container {
+        position: relative;
+        width: 90%;
+        max-width: 800px;
+        padding: 20px;
+        margin: 20px 0;
+        background-color: rgba(10, 26, 42, 0.85);
+        border: 8px double #c9b18c;
+        box-shadow: 0 0 30px rgba(0, 128, 128, 0.3);
+      }
+
+      .title-section {
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #c9b18c;
+        padding-bottom: 20px;
+      }
+
+      h1 {
+        font-family: "Cinzel Decorative", cursive;
+        color: #c9b18c;
+        margin: 0;
+        font-size: 2rem;
+        letter-spacing: 2px;
+      }
+
+      .log-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: rgba(28, 43, 53, 0.7);
+        border: 2px solid #c9b18c;
+        font-size: 0.9rem;
+      }
+
+      .log-table th,
+      .log-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #c9b18c;
+        color: #c9b18c;
+      }
+
+      .log-table th {
+        background-color: rgba(10, 26, 42, 0.9);
+        font-weight: bold;
+        vertical-align: middle;
+      }
+
+      .log-table td {
+        color: #8ca5c9;
+        vertical-align: middle;
+      }
+
+      /* Icon styling */
+      .log-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+        vertical-align: middle;
+        fill: #c9b18c; /* Matches original text color */
+      }
+
+      .button {
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .button a {
+        display: inline-block;
+        padding: 8px 20px;
+        background-color: #1a3040;
+        color: #c9b18c;
+        text-decoration: none;
+        border: 1px solid #c9b18c;
+        font-family: "Space Grotesk", sans-serif;
+        transition: all 0.3s;
+      }
+
+      .button a:hover {
+        background-color: #c9b18c;
+        color: #1a3040;
+      }
+
+      .vintage-screws {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          #c9b18c 0%,
+          #8b7b5e 70%,
+          #5d4e36 100%
+        );
+        box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.8);
+      }
+
+      .screw-1 {
+        top: 15px;
+        left: 15px;
+      }
+      .screw-2 {
+        top: 15px;
+        right: 15px;
+      }
+      .screw-3 {
+        bottom: 15px;
+        left: 15px;
+      }
+      .screw-4 {
+        bottom: 15px;
+        right: 15px;
+      }
+
+      @media (max-width: 768px) {
+        .log-container {
+          padding: 15px;
+          border-width: 6px;
+        }
+        h1 {
+          font-size: 1.6rem;
+        }
+        .log-table {
+          font-size: 0.8rem;
+        }
+        .log-table th,
+        .log-table td {
+          padding: 8px;
+        }
+        .log-icon {
+          width: 16px;
+          height: 16px;
+          margin-right: 6px;
+        }
+        .vintage-screws {
+          width: 8px;
+          height: 8px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .log-container {
+          padding: 10px;
+          border-width: 4px;
+          width: 95%;
+        }
+        h1 {
+          font-size: 1.3rem;
+        }
+        .log-table {
+          font-size: 0.7rem;
+        }
+        .log-table th,
+        .log-table td {
+          padding: 6px;
+        }
+        .log-icon {
+          width: 14px;
+          height: 14px;
+          margin-right: 4px;
+        }
+        .button a {
+          padding: 6px 15px;
+          font-size: 0.9rem;
+        }
+        .title-section {
+          margin-bottom: 15px;
+          padding-bottom: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="log-container">
+      <div class="vintage-screws screw-1"></div>
+      <div class="vintage-screws screw-2"></div>
+      <div class="vintage-screws screw-3"></div>
+      <div class="vintage-screws screw-4"></div>
+
+      <div class="title-section">
+        <h1>Vessel Log - Nautilus</h1>
+      </div>
+
+      <table class="log-table">
+        <tr>
+          <th>
+            <svg class="log-icon" viewBox="0 0 24 24">
+              <path
+                d="M12 2v20m-6-14h12m-12 8h12"
+                stroke="#c9b18c"
+                stroke-width="2"
+                fill="none" />
+            </svg>
+            Location
+          </th>
+          <td>Sector 42, Pacific Ocean (24°17'N, 37°35'W)</td>
+        </tr>
+        <tr>
+          <th>
+            <svg class="log-icon" viewBox="0 0 24 24">
+              <path
+                d="M12 2v6m0 2v12m-4 0h8m-8-6h8"
+                stroke="#c9b18c"
+                stroke-width="2"
+                fill="none" />
+            </svg>
+            Water Temp
+          </th>
+          <td>4°C</td>
+        </tr>
+        <tr>
+          <th>
+            <svg class="log-icon" viewBox="0 0 24 24">
+              <path
+                d="M12 2c-4 8-4 12 0 18s4-10 0-18"
+                stroke="#c9b18c"
+                stroke-width="2"
+                fill="none" />
+            </svg>
+            Salinity
+          </th>
+          <td>35 ppt</td>
+        </tr>
+        <tr>
+          <th>
+            <svg class="log-icon" viewBox="0 0 24 24">
+              <path
+                d="M12 2v20m-8-4l8-8 8 8"
+                stroke="#c9b18c"
+                stroke-width="2"
+                fill="none" />
+            </svg>
+            Depth
+          </th>
+          <td>180 fathoms</td>
+        </tr>
+        <tr>
+          <th>
+            <svg class="log-icon" viewBox="0 0 24 24">
+              <path
+                d="M4 12h16m-8-8v16"
+                stroke="#c9b18c"
+                stroke-width="2"
+                fill="none" />
+            </svg>
+            Notable Findings
+          </th>
+          <td>Unidentified metallic fragments, possibly shipwreck debris</td>
+        </tr>
+        <tr>
+          <th>
+            <svg class="log-icon" viewBox="0 0 24 24">
+              <path
+                d="M4 16c2-4 6-6 8 0 2-6 6-4 8 0"
+                stroke="#c9b18c"
+                stroke-width="2"
+                fill="none" />
+            </svg>
+            Observations
+          </th>
+          <td>Bioluminescent organisms sighted—species unknown</td>
+        </tr>
+      </table>
+
+      <div class="button">
+        <a href="index.html">RETURN TO CHART</a>
+      </div>
+    </div>
+  </body>
+</html>
