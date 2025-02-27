@@ -14,9 +14,9 @@
         margin: 0;
         padding: 0;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
+        flex-direction: column; /* Changed to column for vertical stacking */
+        align-items: center; /* Center horizontally */
+        min-height: 100vh; /* Ensure body takes full height */
         background-color: #0a1a2a;
         background-image: url("/api/placeholder/1200/800");
         background-size: cover;
@@ -311,8 +311,8 @@
       <div class="notes">
         "The depths of the ocean hold secrets beyond imagination. This chart
         maps the underwater terrain at coordinates 36°24'N, 25°26'E, where we
-        discovered submarine coal deposits. Numbers indicate depth in fathoms
-        — proceed with caution near shallows."
+        discovered submarine coal deposits. Numbers indicate depth in fathoms —
+        proceed with caution near shallows."
         <div class="coordinates">— Captain Nemo, 1868</div>
       </div>
 
