@@ -3,9 +3,9 @@
 <img alt="Screenshot-Nautilus" src="https://github.com/user-attachments/assets/2bd11dd4-39a1-41a5-8cba-ca6982ce26c0" />
 
 ## Demo
-Open [index.html](https://edisedis777.github.io/Nautilus-Chart/) in a browser to explore the chart and interact with the compass.
+Try it live: [HERE](https://edisedis777.github.io/Nautilus-Chart/)
 
-
+## Description
 A nautical-themed interactive web application featuring:
 * ocean depth chart
 * vessel log page
