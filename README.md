@@ -6,7 +6,6 @@
 ![p5js](https://img.shields.io/badge/p5.js-ED225D?style=for-the-badge&logo=p5.js&logoColor=FFFFFF)
 ![Chroma.js](https://img.shields.io/badge/Chroma.js-Color%20Manipulation-F92A82?logo=javascript&logoColor=white)
 [![Markdown](https://img.shields.io/badge/Markdown-%23000000.svg?logo=markdown&logoColor=white)](#)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 <img alt="Screenshot-Nautilus" src="https://github.com/user-attachments/assets/2bd11dd4-39a1-41a5-8cba-ca6982ce26c0" />
 
@@ -39,4 +38,4 @@ A nautical-themed interactive web application featuring:
 * Twenty Thousand Leagues under the Sea by Jules Verne. Read it [here](https://www.gutenberg.org/ebooks/164) on Project Gutenberg for free. 
 
 ## License
-MIT License - feel free to use, modify, and distribute!
+* Distributed under the GNU Affero General Public License v3.0 License. See `LICENSE` for more information.
